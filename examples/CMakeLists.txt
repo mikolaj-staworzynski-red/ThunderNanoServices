@@ -37,6 +37,8 @@ option(EXAMPLE_IOCONNECTOR_TEST "Include IOConnector test suite" OFF)
 option(EXAMPLE_MESSAGECONTROL_UDP_CLIENT "Include UDP output client for message control" OFF)
 option(EXAMPLE_DYNAMICLOADING "Include dynamic loading examples" OFF)
 
+add_subdirectory(Client)
+
 if(EXAMPLE_COMRPCCLIENT)
     add_subdirectory(COMRPCClient)
 endif()
