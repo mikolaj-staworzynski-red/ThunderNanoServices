@@ -29,6 +29,7 @@ void eventHandler_pluginState(const JsonObject &parameters) {
 
 int main(int argc, char** argv)
 {
+    int ret = -1;
     Core::SystemInfo::SetEnvironment(_T("THUNDER_ACCESS"), (_T("127.0.0.1:55555")));
     {
         WPEFramework::JSONRPC::LinkType<WPEFramework::Core::JSON::IElement> *remoteObjectController = nullptr;
@@ -39,11 +40,12 @@ int main(int argc, char** argv)
             auto ev_ret = remoteObjectController->Subscribe<JsonObject>(10000, _T("statechange"), &eventHandler_pluginState);
             printf("[%s:%d] Controller - statechange event : %s : %d\n", __FILE__, __LINE__, (ev_ret == Core::ERROR_NONE) ? "subscribed" : "failed to subscribe", ev_ret);
             // second subscribe works fine
-            ev_ret = remoteObjectController->Subscribe<JsonObject>(1000, _T("statechange"), &eventHandler_pluginState);
-            printf("[%s:%d] Controller - statechange event : %s : %d\n", __FILE__, __LINE__, (ev_ret == Core::ERROR_NONE) ? "subscribed" : "failed to subscribe", ev_ret);
+            //ev_ret = remoteObjectController->Subscribe<JsonObject>(1000, _T("statechange"), &eventHandler_pluginState);
+            //printf("[%s:%d] Controller - statechange event : %s : %d\n", __FILE__, __LINE__, (ev_ret == Core::ERROR_NONE) ? "subscribed" : "failed to subscribe", ev_ret);
             delete remoteObjectController;
+            ret = ev_ret;
         }
     }
 
-    return (0);
+    return (ret);
 }
